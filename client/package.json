@@ -1,0 +1,8 @@
+{
+  "name": "@native-to-mainstay/monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "tests"
+  ]
+}
