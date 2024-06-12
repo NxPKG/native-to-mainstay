@@ -3,8 +3,8 @@ pub mod accounts {
     pub const CODER_TYPE: &str = "AccountsCoder";
     pub const CONTENT: &str = r#"// @ts-nocheck
 import * as B from "@native-to-mainstay/buffer-layout";
-import { AccountsCoder, Idl } from "@project-serum/anchor";
-import { IdlTypeDef } from "@project-serum/anchor/dist/cjs/idl";
+import { AccountsCoder, Idl } from "@project-serum/mainstay";
+import { IdlTypeDef } from "@project-serum/mainstay/dist/cjs/idl";
 
 export class <ProgramName>AccountsCoder<A extends string = string>
   implements AccountsCoder
@@ -63,8 +63,8 @@ export class <ProgramName>AccountsCoder<A extends string = string>
 pub mod events {
     pub const FILENAME: &str = "events.ts";
     pub const CODER_TYPE: &str = "EventsCoder";
-    pub const CONTENT: &str = r#"import { Idl, Event, EventCoder } from "@project-serum/anchor";
-import { IdlEvent } from "@project-serum/anchor/dist/cjs/idl";
+    pub const CONTENT: &str = r#"import { Idl, Event, EventCoder } from "@project-serum/mainstay";
+import { IdlEvent } from "@project-serum/mainstay/dist/cjs/idl";
 
 export class <ProgramName>EventsCoder implements EventCoder {
   constructor(_idl: Idl) {}
@@ -80,7 +80,7 @@ export class <ProgramName>EventsCoder implements EventCoder {
 pub mod index {
     pub const FILENAME: &str = "index.ts";
     pub const CODER_TYPE: &str = "Coder";
-    pub const CONTENT: &str = r#"import { Idl, Coder } from "@project-serum/anchor"
+    pub const CONTENT: &str = r#"import { Idl, Coder } from "@project-serum/mainstay"
 
 import { <ProgramName>AccountsCoder } from "./accounts";
 import { <ProgramName>EventsCoder } from "./events";
@@ -114,7 +114,7 @@ pub mod instructions {
     pub const CODER_TYPE: &str = "InstructionCoder";
     pub const CONTENT: &str = r#"// @ts-nocheck
 import * as B from "@native-to-mainstay/buffer-layout";
-import { Idl, InstructionCoder } from "@project-serum/anchor";
+import { Idl, InstructionCoder } from "@project-serum/mainstay";
 
 export class <ProgramName>InstructionCoder implements InstructionCoder {
   constructor(_idl: Idl) {}
@@ -149,7 +149,7 @@ function encodeData(ix: any, span: number): Buffer {
 pub mod state {
     pub const FILENAME: &str = "state.ts";
     pub const CODER_TYPE: &str = "StateCoder";
-    pub const CONTENT: &str = r#"import { Idl, StateCoder } from "@project-serum/anchor";
+    pub const CONTENT: &str = r#"import { Idl, StateCoder } from "@project-serum/mainstay";
 
 export class <ProgramName>StateCoder implements StateCoder {
   constructor(_idl: Idl) {}
@@ -166,7 +166,7 @@ export class <ProgramName>StateCoder implements StateCoder {
 pub mod types {
     pub const FILENAME: &str = "types.ts";
     pub const CODER_TYPE: &str = "TypesCoder";
-    pub const CONTENT: &str = r#"import { Idl, TypesCoder } from "@project-serum/anchor";
+    pub const CONTENT: &str = r#"import { Idl, TypesCoder } from "@project-serum/mainstay";
 
 export class <ProgramName>TypesCoder implements TypesCoder {
   constructor(_idl: Idl) {}
@@ -186,7 +186,7 @@ pub mod src {
 
     pub const PROGRAM_FILENAME: &str = "program.ts";
     pub const PROGRAM_CONTENT: &str = r#"import { PublicKey } from "@solana/web3.js";
-import { Program, AnchorProvider } from "@project-serum/anchor";
+import { Program, MainstayProvider } from "@project-serum/mainstay";
 
 import { <ProgramName>Coder } from "./coder";
 
@@ -194,7 +194,7 @@ import { <ProgramName>Coder } from "./coder";
 
 interface GetProgramParams {
   programId?: PublicKey;
-  provider?: AnchorProvider;
+  provider?: MainstayProvider;
 }
 
 export function <ProgramNameCamel>Program(
@@ -245,7 +245,7 @@ pub mod package {
     "watch": "tsc -p tsconfig.cjs.json --watch"
   },
   "dependencies": {
-    "@project-serum/anchor": "=0.25.0",
+    "@project-serum/mainstay": "=0.25.0",
     "@native-to-mainstay/buffer-layout": "=0.1.0"
   },
   "devDependencies": {
@@ -473,9 +473,9 @@ export default {
     "@solana/buffer-layout" "=4.0.0"
     "@solana/buffer-layout-utils" "=0.2.0"
 
-"@project-serum/anchor@=0.25.0":
+"@project-serum/mainstay@=0.25.0":
   version "0.25.0"
-  resolved "https://registry.yarnpkg.com/@project-serum/anchor/-/anchor-0.25.0.tgz#88ee4843336005cf5a64c80636ce626f0996f503"
+  resolved "https://registry.yarnpkg.com/@project-serum/mainstay/-/mainstay-0.25.0.tgz#88ee4843336005cf5a64c80636ce626f0996f503"
   integrity sha512-E6A5Y/ijqpfMJ5psJvbw0kVTzLZFUcOFgs6eSM2M2iWE1lVRF18T6hWZVNl6zqZsoz98jgnNHtVGJMs+ds9A7A==
   dependencies:
     "@project-serum/borsh" "^0.2.5"

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { PublicKey } from "@solana/web3.js";
-import { Program, AnchorProvider } from "@project-serum/anchor";
+import { Program, MainstayProvider } from "@project-serum/mainstay";
 
 import { SplFeatureProposalCoder } from "./coder";
 
@@ -10,7 +10,7 @@ export const SPL_FEATURE_PROPOSAL_PROGRAM_ID = new PublicKey(
 
 interface GetProgramParams {
   programId?: PublicKey;
-  provider?: AnchorProvider;
+  provider?: MainstayProvider;
 }
 
 export function splFeatureProposalProgram(

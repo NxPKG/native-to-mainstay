@@ -28,13 +28,13 @@ struct Cli {
 
 #[derive(Subcommand)]
 pub enum Commands {
-    /// Generate Anchor dummy program
+    /// Generate Mainstay dummy program
     Program(ProgramArgs),
 
-    /// Generate Anchor IDL
+    /// Generate Mainstay IDL
     Idl(IdlArgs),
 
-    /// Generate Anchor client as an importable JS package
+    /// Generate Mainstay client as an importable JS package
     Package(PackageArgs),
 }
 
@@ -51,11 +51,11 @@ pub struct IdlArgs {
     #[clap(value_parser)]
     pub path: Option<PathBuf>,
 
-    /// Keep generated Anchor dummy program after generating the IDL
+    /// Keep generated Mainstay dummy program after generating the IDL
     #[clap(short, long, action)]
     pub keep_dummy_program: bool,
 
-    /// Path of existing Anchor dummy program file(lib.rs)
+    /// Path of existing Mainstay dummy program file(lib.rs)
     #[clap(short, long, value_parser)]
     pub dummy_program_path: Option<PathBuf>,
 }
@@ -70,7 +70,7 @@ pub struct PackageArgs {
     #[clap(short, long, action)]
     pub keep: bool,
 
-    /// Keep generated Anchor dummy program after generating the IDL
+    /// Keep generated Mainstay dummy program after generating the IDL
     #[clap(long, action)]
     pub keep_dummy_program: bool,
 
@@ -86,11 +86,11 @@ pub struct PackageArgs {
     #[clap(short, long, action)]
     pub yarn_lock: bool,
 
-    /// Path of existing Anchor dummy program file(lib.rs)
+    /// Path of existing Mainstay dummy program file(lib.rs)
     #[clap(short, long, value_parser)]
     pub dummy_program_path: Option<PathBuf>,
 
-    /// Path of existing Anchor IDL file(JSON)
+    /// Path of existing Mainstay IDL file(JSON)
     #[clap(short, long, value_parser)]
     pub idl_path: Option<PathBuf>,
 }

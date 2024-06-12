@@ -5,7 +5,7 @@
 import assert from "assert";
 import { splTokenLendingProgram } from "@native-to-mainstay/spl-token-lending";
 import { splTokenProgram } from "@native-to-mainstay/spl-token";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 import {
   Keypair,
   PublicKey,

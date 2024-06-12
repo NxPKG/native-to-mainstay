@@ -1,6 +1,6 @@
 import { createHash } from "crypto";
 import { splNameServiceProgram } from "@native-to-mainstay/spl-name-service";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 
 import { SPL_NAME_SERVICE_PROGRAM_ID } from "../constants";
 import { confirmTx, getProvider, loadKp, test } from "../utils";
@@ -21,7 +21,7 @@ export async function nameServiceTests() {
   };
 
   const PREFIX = "SPL Name Service";
-  const NAME = "anchor" + Math.floor(Math.random() * 1000);
+  const NAME = "mainstay" + Math.floor(Math.random() * 1000);
   const UPDATE_NAME = "acheron";
 
   const newOwnerKp = new Keypair();

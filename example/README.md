@@ -1,13 +1,13 @@
 ## Client generation example
 
-This example will demonstrate how we can generate an Anchor Client for a Native program and use it in Javascript.
+This example will demonstrate how we can generate an Mainstay Client for a Native program and use it in Javascript.
 
 ### Requirements
 
 - Rust
 - Solana
 - Yarn or NPM
-- Native to Anchor
+- Native to Mainstay
 
 Make sure you've installed the required programs before continuing with the tutorial.
 
@@ -136,7 +136,7 @@ async function initializeAccount() {
 }
 ```
 
-You should get typescript autocomplete support when writing this function just like you would an Anchor program! We are creating the account in `preInstructions` and sending both instructions together.
+You should get typescript autocomplete support when writing this function just like you would an Mainstay program! We are creating the account in `preInstructions` and sending both instructions together.
 
 Let's check if the account was created correctly:
 
@@ -156,7 +156,7 @@ Full code:
 ```ts
 import assert from "assert";
 import { ntaExampleProgram } from "@native-to-mainstay/nta-example";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 import { Keypair, PublicKey } from "@solana/web3.js";
 
 import { getProvider, loadKp, test, confirmTx } from "../utils";

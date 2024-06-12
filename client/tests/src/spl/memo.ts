@@ -13,7 +13,7 @@ export async function memoTests() {
   });
   const kp = await loadKp();
 
-  const msg = "Memo from Anchor";
+  const msg = "Memo from Mainstay";
   let memoTxHash: string;
 
   async function memo() {

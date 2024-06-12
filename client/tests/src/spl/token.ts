@@ -1,7 +1,7 @@
 import assert from "assert";
 import { splTokenProgram } from "@native-to-mainstay/spl-token";
 import { Keypair, PublicKey, SYSVAR_RENT_PUBKEY } from "@solana/web3.js";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 
 import { NATIVE_MINT_PK, SPL_TOKEN_PROGRAM_ID } from "../constants";
 import {

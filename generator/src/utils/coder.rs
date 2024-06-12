@@ -1,4 +1,4 @@
-use anchor_syn::idl::{EnumFields, Idl, IdlField, IdlType, IdlTypeDefinitionTy};
+use mainstay_syn::idl::{EnumFields, Idl, IdlField, IdlType, IdlTypeDefinitionTy};
 
 use super::common::{
     camel_from_pascal, camel_from_snake, error, get_const_value, get_inside_item, get_item, warn,

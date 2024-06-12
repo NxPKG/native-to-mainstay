@@ -1,6 +1,6 @@
 // @ts-nocheck
 import * as B from "@native-to-mainstay/buffer-layout";
-import { Idl, InstructionCoder } from "@project-serum/anchor";
+import { Idl, InstructionCoder } from "@project-serum/mainstay";
 
 export class SplStakePoolInstructionCoder implements InstructionCoder {
   constructor(_idl: Idl) {}

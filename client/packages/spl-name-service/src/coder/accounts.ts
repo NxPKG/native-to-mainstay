@@ -1,7 +1,7 @@
 // @ts-nocheck
 import * as B from "@native-to-mainstay/buffer-layout";
-import { AccountsCoder, Idl } from "@project-serum/anchor";
-import { IdlTypeDef } from "@project-serum/anchor/dist/cjs/idl";
+import { AccountsCoder, Idl } from "@project-serum/mainstay";
+import { IdlTypeDef } from "@project-serum/mainstay/dist/cjs/idl";
 
 export class SplNameServiceAccountsCoder<A extends string = string>
   implements AccountsCoder

@@ -1,5 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
-import { Program, AnchorProvider } from "@project-serum/anchor";
+import { Program, MainstayProvider } from "@project-serum/mainstay";
 
 import { SplStatelessAsksCoder } from "./coder";
 
@@ -7,7 +7,7 @@ const SPL_STATELESS_ASKS_PROGRAM_ID = PublicKey.default;
 
 interface GetProgramParams {
   programId?: PublicKey;
-  provider?: AnchorProvider;
+  provider?: MainstayProvider;
 }
 
 export function splStatelessAsksProgram(

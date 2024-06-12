@@ -1,4 +1,4 @@
-use anchor_syn::idl::IdlType;
+use mainstay_syn::idl::IdlType;
 use colored::Colorize;
 use log::info;
 

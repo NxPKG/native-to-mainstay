@@ -13,7 +13,7 @@
     "typescript": "*"
   },
   "dependencies": {
-    "@project-serum/anchor": "*",
+    "@project-serum/mainstay": "*",
     "@solana/web3.js": "*"
   }
 }

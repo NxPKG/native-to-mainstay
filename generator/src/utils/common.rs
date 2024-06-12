@@ -6,7 +6,7 @@ use std::{
     process::Command,
 };
 
-use anchor_syn::idl::IdlType;
+use mainstay_syn::idl::IdlType;
 use colored::Colorize;
 use log::{debug, error, info, warn};
 
@@ -287,7 +287,7 @@ where
             .get(..start_content.find(';').unwrap())
             .unwrap();
 
-        // Empty structs are not allowed for anchor so add {} at the end
+        // Empty structs are not allowed for mainstay so add {} at the end
         return Some(format!("{item} {{}}\n"));
     }
     if let Some(i) = content.find(&format!("pub enum {name} ")) {

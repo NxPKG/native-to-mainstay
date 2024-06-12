@@ -1,7 +1,7 @@
 [package]
 name = "nta-example"
 version = "0.1.0"
-description = "A simple program to show how Native to Anchor works"
+description = "A simple program to show how Native to Mainstay works"
 authors = ["acheron <nxpkg@gmail.com>"]
 repository = "https://github.com/nxpkg/native-to-mainstay"
 license = "MIT"

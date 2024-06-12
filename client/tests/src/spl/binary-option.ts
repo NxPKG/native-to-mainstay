@@ -7,7 +7,7 @@ import {
   SYSVAR_RENT_PUBKEY,
 } from "@solana/web3.js";
 import { splTokenProgram } from "@native-to-mainstay/spl-token";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 
 import {
   SPL_BINARY_OPTION_PROGRAM_ID,

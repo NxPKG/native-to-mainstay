@@ -1,4 +1,4 @@
-import { Idl, Coder } from "@project-serum/anchor";
+import { Idl, Coder } from "@project-serum/mainstay";
 
 import { SplBinaryOptionAccountsCoder } from "./accounts";
 import { SplBinaryOptionEventsCoder } from "./events";

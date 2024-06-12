@@ -1,4 +1,4 @@
-import { Idl, TypesCoder } from "@project-serum/anchor";
+import { Idl, TypesCoder } from "@project-serum/mainstay";
 
 export class SplTokenLendingTypesCoder implements TypesCoder {
   constructor(_idl: Idl) {}

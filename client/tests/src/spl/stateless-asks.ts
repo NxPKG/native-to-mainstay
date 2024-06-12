@@ -1,6 +1,6 @@
 import { splStatelessAsksProgram } from "@native-to-mainstay/spl-stateless-asks";
 import { splTokenProgram } from "@native-to-mainstay/spl-token";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 import { Keypair, PublicKey } from "@solana/web3.js";
 
 import {

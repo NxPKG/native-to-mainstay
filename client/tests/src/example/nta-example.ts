@@ -1,5 +1,5 @@
 import assert from "assert";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 import { Keypair, PublicKey } from "@solana/web3.js";
 
 import { getProvider, loadKp, test, confirmTx } from "../utils";

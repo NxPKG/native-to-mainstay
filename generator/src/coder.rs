@@ -3,7 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use anchor_syn::idl::{Idl, IdlTypeDefinitionTy};
+use mainstay_syn::idl::{Idl, IdlTypeDefinitionTy};
 use colored::Colorize;
 use log::info;
 use serde_json::to_string_pretty;
@@ -83,7 +83,7 @@ impl<'a> CoderGenerator<'a> {
 
     pub fn run(self) -> GeneratorResult {
         info(format!(
-            "Creating Anchor Coder for {}...",
+            "Creating Mainstay Coder for {}...",
             self.program_info.name
         ));
 

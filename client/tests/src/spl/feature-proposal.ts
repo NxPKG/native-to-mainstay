@@ -1,6 +1,6 @@
 import { splFeatureProposalProgram } from "@native-to-mainstay/spl-feature-proposal";
 import { splTokenProgram } from "@native-to-mainstay/spl-token";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 import {
   Keypair,
   PublicKey,

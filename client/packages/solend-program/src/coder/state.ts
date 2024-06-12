@@ -1,4 +1,4 @@
-import { Idl, StateCoder } from "@project-serum/anchor";
+import { Idl, StateCoder } from "@project-serum/mainstay";
 
 export class SolendProgramStateCoder implements StateCoder {
   constructor(_idl: Idl) {}

@@ -1,6 +1,6 @@
 [package]
 name = "native-to-mainstay"
-description = "Generate Anchor IDLs and clients from native Solana programs"
+description = "Generate Mainstay IDLs and clients from native Solana programs"
 version = "0.1.0"
 authors = ["acheron <nxpkg@gmail.com>"]
 repository = "https://github.com/nxpkg/native-to-mainstay"
@@ -12,10 +12,10 @@ include = [
     "Cargo.toml",
     "Cargo.lock"
 ]
-keywords = ["native-to-mainstay", "solana", "anchor", "anchor-client", "nta"]
+keywords = ["native-to-mainstay", "solana", "mainstay", "mainstay-client", "nta"]
 
 [dependencies]
-anchor-syn = { version = "0.25.0", features = ["idl"] }
+mainstay-syn = { version = "0.25.0", features = ["idl"] }
 clap = { version = "3.2.16", features = ["derive"] }
 colored = "2.0.0"
 log = "0.4.17"

@@ -12,7 +12,7 @@ import {
   Transaction,
   TransactionInstruction,
 } from "@solana/web3.js";
-import { AnchorProvider, Wallet } from "@project-serum/anchor";
+import { MainstayProvider, Wallet } from "@project-serum/mainstay";
 
 import { SPL_ATA_PROGRAM_ID, SPL_TOKEN_PROGRAM_ID } from "./constants";
 
@@ -105,10 +105,10 @@ export async function getProvider() {
   });
   const wallet = new Wallet(kp);
 
-  const provider = new AnchorProvider(
+  const provider = new MainstayProvider(
     conn,
     wallet,
-    AnchorProvider.defaultOptions()
+    MainstayProvider.defaultOptions()
   );
 
   if (!hasBalance && !(await provider.connection.getBalance(kp.publicKey))) {

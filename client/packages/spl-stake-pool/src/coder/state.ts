@@ -1,4 +1,4 @@
-import { Idl, StateCoder } from "@project-serum/anchor";
+import { Idl, StateCoder } from "@project-serum/mainstay";
 
 export class SplStakePoolStateCoder implements StateCoder {
   constructor(_idl: Idl) {}

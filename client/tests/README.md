@@ -17,4 +17,4 @@ Run:
 yarn test
 ```
 
-**NOTE:** Tests are for whether we are successfully able to call programs with Anchor and fetch state, and not for whether program logic works as intended.
+**NOTE:** Tests are for whether we are successfully able to call programs with Mainstay and fetch state, and not for whether program logic works as intended.

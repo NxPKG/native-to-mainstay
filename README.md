@@ -1,6 +1,6 @@
-# Native to Anchor
+# Native to Mainstay
 
-**N**ative **T**o **A**nchor(nta) is a CLI tool that helps you generate [Anchor](https://github.com/coral-xyz/anchor) IDLs and clients for native [Solana](https://github.com/solana-labs/solana) programs.
+**N**ative **T**o **A**nchor(nta) is a CLI tool that helps you generate [Mainstay](https://github.com/nxpkg/mainstay) IDLs and clients for native [Solana](https://github.com/solana-labs/solana) programs.
 
 ## Installation
 
@@ -40,7 +40,7 @@ There is an example tutorial in `example` directory. You can also check out `cli
 
 #### Generate IDL
 
-You can easily create an Anchor IDL from a Solana program with:
+You can easily create an Mainstay IDL from a Solana program with:
 
 ```sh
 native-to-mainstay idl <PATH_TO_SOLANA_PROGRAM>
@@ -48,7 +48,7 @@ native-to-mainstay idl <PATH_TO_SOLANA_PROGRAM>
 
 #### Generate package
 
-Having the IDL is nice but IDL alone will not allow program interactions. Luckily this tool will create a package that you can import to your project and interact with native Solana programs like you would with Anchor programs.
+Having the IDL is nice but IDL alone will not allow program interactions. Luckily this tool will create a package that you can import to your project and interact with native Solana programs like you would with Mainstay programs.
 
 ```sh
 native-to-mainstay package <PATH_TO_SOLANA_PROGRAM>

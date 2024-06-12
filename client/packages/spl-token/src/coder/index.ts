@@ -1,4 +1,4 @@
-import { Idl, Coder } from "@project-serum/anchor";
+import { Idl, Coder } from "@project-serum/mainstay";
 
 import { SplTokenAccountsCoder } from "./accounts";
 import { SplTokenEventsCoder } from "./events";

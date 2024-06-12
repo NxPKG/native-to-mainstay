@@ -5,7 +5,7 @@
 //
 // You can fix it by adjusting the program based on the requirements.
 //
-// Remaining accounts will be commented out in the dummy Anchor program.
+// Remaining accounts will be commented out in the dummy Mainstay program.
 
 use std::{
     cell::RefCell,
@@ -14,7 +14,7 @@ use std::{
     usize,
 };
 
-use anchor_syn::idl::{self, Idl, IdlType};
+use mainstay_syn::idl::{self, Idl, IdlType};
 use colored::Colorize;
 use log::info;
 use serde_json::to_string_pretty;
@@ -45,10 +45,10 @@ pub struct ProgramAndIdlGenerator<'a> {
     idl_generator: Option<IdlGenerator<'a>>,
     program_info: &'a ProgramInfo,
     all_content: &'a str,
-    /// Anchor lib.rs path
-    anchor_path: PathBuf,
+    /// Mainstay lib.rs path
+    mainstay_path: PathBuf,
     /// All content that will be written to program/lib.rs
-    anchor_content: RefCell<String>,
+    mainstay_content: RefCell<String>,
     replecable_types: RefCell<Vec<&'static [&'static str; 2]>>,
     irreplecable_types: RefCell<Vec<String>>,
 }
@@ -59,18 +59,18 @@ pub struct ProgramGenerator<'a> {
 
 pub struct IdlGenerator<'a> {
     pub idl_path: &'a Path,
-    /// Whether to keep generated anchor program folder after IDL creation
+    /// Whether to keep generated mainstay program folder after IDL creation
     pub keep_dummy_program: bool,
 }
 
 impl<'a> ProgramAndIdlGenerator<'a> {
     pub fn new_program(generator: &'a Generator) -> Self {
-        let anchor_path = generator
+        let mainstay_path = generator
             .generated_project_path
             .join(dirname::PROGRAM)
             .join(filename::LIB);
 
-        let anchor_content = PROGRAM_PRETEXT.replace(
+        let mainstay_content = PROGRAM_PRETEXT.replace(
             "<ProgramName>",
             &snake_from_kebab(&generator.program_info.name),
         );
@@ -82,8 +82,8 @@ impl<'a> ProgramAndIdlGenerator<'a> {
             idl_generator: None,
             program_info: &generator.program_info,
             all_content: &generator.all_content,
-            anchor_path,
-            anchor_content: RefCell::new(anchor_content),
+            mainstay_path,
+            mainstay_content: RefCell::new(mainstay_content),
             replecable_types: RefCell::new(vec![]),
             irreplecable_types: RefCell::new(vec![]),
         }
@@ -94,7 +94,7 @@ impl<'a> ProgramAndIdlGenerator<'a> {
         keep_dummy_program: bool,
         maybe_dummy_program_path: &Option<PathBuf>,
     ) -> Self {
-        let (anchor_path, anchor_content, program_generator) = match maybe_dummy_program_path {
+        let (mainstay_path, mainstay_content, program_generator) = match maybe_dummy_program_path {
             Some(path) => {
                 let path = get_absolute_path(path);
                 let content = fs::read_to_string(&path).unwrap();
@@ -127,8 +127,8 @@ impl<'a> ProgramAndIdlGenerator<'a> {
             }),
             program_info: &generator.program_info,
             all_content: &generator.all_content,
-            anchor_path,
-            anchor_content: RefCell::new(anchor_content),
+            mainstay_path,
+            mainstay_content: RefCell::new(mainstay_content),
             replecable_types: RefCell::new(vec![]),
             irreplecable_types: RefCell::new(vec![]),
         }
@@ -138,18 +138,18 @@ impl<'a> ProgramAndIdlGenerator<'a> {
         // Create dummy program
         if self.program_generator.is_some() {
             info(format!(
-                "Creating Anchor program for {}...",
+                "Creating Mainstay program for {}...",
                 self.program_info.name
             ));
 
-            // Create Anchor dir(s) recursively
-            let anchor_dir = &self.anchor_path.parent().unwrap();
-            if !Path::new(anchor_dir).is_dir() {
-                fs::create_dir_all(anchor_dir)?;
+            // Create Mainstay dir(s) recursively
+            let mainstay_dir = &self.mainstay_path.parent().unwrap();
+            if !Path::new(mainstay_dir).is_dir() {
+                fs::create_dir_all(mainstay_dir)?;
             }
 
             // Format the code
-            rustfmt(&self.anchor_path)?;
+            rustfmt(&self.mainstay_path)?;
 
             // Create instructions
             self.create_instructions()?;
@@ -160,8 +160,8 @@ impl<'a> ProgramAndIdlGenerator<'a> {
             // Create errors
             self.create_errors()?;
 
-            // Write Anchor file
-            self.write_anchor_dummy()?;
+            // Write Mainstay file
+            self.write_mainstay_dummy()?;
             success("Success.");
         }
 
@@ -195,7 +195,7 @@ impl<'a> ProgramAndIdlGenerator<'a> {
             }
         };
 
-        let mut anchor_content = self.anchor_content.borrow_mut();
+        let mut mainstay_content = self.mainstay_content.borrow_mut();
         let mut contexts = String::new();
 
         // Compare curly braces count
@@ -362,10 +362,10 @@ impl<'a> ProgramAndIdlGenerator<'a> {
                     line = line.replace("},", ") -> Result<()> { Ok(()) }\n");
                 }
 
-                anchor_content.push_str(&line);
+                mainstay_content.push_str(&line);
 
                 if line.len() > 1 {
-                    anchor_content.push('\n');
+                    mainstay_content.push('\n');
                 }
             }
 
@@ -374,11 +374,11 @@ impl<'a> ProgramAndIdlGenerator<'a> {
             }
         }
 
-        anchor_content.pop(); // Remove ',' at the end
-        anchor_content.push_str("}\n\n"); // space for Contexts
+        mainstay_content.pop(); // Remove ',' at the end
+        mainstay_content.push_str("}\n\n"); // space for Contexts
 
         // Add contexts
-        anchor_content.push_str(&contexts);
+        mainstay_content.push_str(&contexts);
 
         Ok(())
     }
@@ -501,14 +501,14 @@ impl<'a> ProgramAndIdlGenerator<'a> {
             .filter(|t| account_names.contains(&get_item_name_from_full_item(t)))
             .collect::<Vec<&String>>();
 
-        let mut anchor_content = self.anchor_content.borrow_mut();
+        let mut mainstay_content = self.mainstay_content.borrow_mut();
 
         info!("{}", "Accounts".purple().bold());
         for account in &accounts {
             let account_name = get_item_name_from_full_item(account);
             info!("Creating account: {}", account_name.bold());
             let account = format!("#[account]\n{account}");
-            anchor_content.push_str(&format!("{account}\n"));
+            mainstay_content.push_str(&format!("{account}\n"));
         }
 
         info!("{}", "Types".purple().bold());
@@ -519,8 +519,8 @@ impl<'a> ProgramAndIdlGenerator<'a> {
         for ty in types {
             let type_name = get_item_name_from_full_item(&ty);
             info!("Creating type: {}", type_name.bold());
-            let ty = format!("#[derive(AnchorSerialize, AnchorDeserialize)]\n{ty}\n");
-            anchor_content.push_str(&ty);
+            let ty = format!("#[derive(MainstaySerialize, MainstayDeserialize)]\n{ty}\n");
+            mainstay_content.push_str(&ty);
         }
 
         // Remove unused types
@@ -528,20 +528,20 @@ impl<'a> ProgramAndIdlGenerator<'a> {
         loop {
             let mut used_once_count = 0usize;
             for type_name in type_names.borrow().iter() {
-                let indices = get_item_indices(anchor_content.as_str(), type_name);
+                let indices = get_item_indices(mainstay_content.as_str(), type_name);
                 if indices.len() == 1 {
                     debug(format!("Type '{type_name}' is only used once. Removing..."));
 
-                    let item = get_local_type(type_name, anchor_content.as_str()).unwrap();
-                    let anchor_serde_len =
-                        "#[derive(AnchorSerialize, AnchorDeserialize)]".len() + 1;
+                    let item = get_local_type(type_name, mainstay_content.as_str()).unwrap();
+                    let mainstay_serde_len =
+                        "#[derive(MainstaySerialize, MainstayDeserialize)]".len() + 1;
                     let start_index = match get_item_type_from_full_item(&item) {
-                        "struct" => indices[0].1 - (("pub struct".len() + 1) + anchor_serde_len),
-                        "enum" => indices[0].1 - (("pub enum".len() + 1) + anchor_serde_len),
+                        "struct" => indices[0].1 - (("pub struct".len() + 1) + mainstay_serde_len),
+                        "enum" => indices[0].1 - (("pub enum".len() + 1) + mainstay_serde_len),
                         _ => unreachable!(),
                     };
-                    anchor_content.replace_range(
-                        start_index..start_index + item.len() + anchor_serde_len,
+                    mainstay_content.replace_range(
+                        start_index..start_index + item.len() + mainstay_serde_len,
                         "",
                     );
                     used_once_count += 1;
@@ -755,18 +755,18 @@ impl<'a> ProgramAndIdlGenerator<'a> {
             let error_name = get_item_name_from_full_item(&error);
             info!("Creating error: {}", error_name.bold());
 
-            let mut anchor_content = self.anchor_content.borrow_mut();
-            anchor_content.push_str(&format!("#[error_code]{error}"));
+            let mut mainstay_content = self.mainstay_content.borrow_mut();
+            mainstay_content.push_str(&format!("#[error_code]{error}"));
         }
 
         Ok(())
     }
 
-    fn write_anchor_dummy(&self) -> GeneratorResult {
-        let mut anchor_content = self.anchor_content.borrow_mut();
+    fn write_mainstay_dummy(&self) -> GeneratorResult {
+        let mut mainstay_content = self.mainstay_content.borrow_mut();
 
         for replecable_type in self.replecable_types.borrow().iter() {
-            (*anchor_content) = (*anchor_content)
+            (*mainstay_content) = (*mainstay_content)
                 .replace(
                     &format!(": {},", replecable_type[0]),
                     &format!(": {},", replecable_type[1]),
@@ -785,17 +785,17 @@ impl<'a> ProgramAndIdlGenerator<'a> {
                 );
         }
 
-        fs::write(&self.anchor_path, anchor_content.as_bytes())?;
+        fs::write(&self.mainstay_path, mainstay_content.as_bytes())?;
 
         // Format the code
-        rustfmt(&self.anchor_path)?;
+        rustfmt(&self.mainstay_path)?;
 
         Ok(())
     }
 
     fn create_idl(&self) -> GeneratorResult {
         info(format!(
-            "Creating Anchor IDL for {}...",
+            "Creating Mainstay IDL for {}...",
             self.program_info.name
         ));
 
@@ -816,16 +816,16 @@ impl<'a> ProgramAndIdlGenerator<'a> {
                         continue;
                     }
 
-                    let mut anchor_content = self.anchor_content.borrow_mut();
-                    if let None = get_local_type(name, anchor_content.as_str()) {
-                        // Defined type doesn't exist in anchor file
+                    let mut mainstay_content = self.mainstay_content.borrow_mut();
+                    if let None = get_local_type(name, mainstay_content.as_str()) {
+                        // Defined type doesn't exist in mainstay file
                         // Try to find it from all content
                         match get_local_type(name, self.all_content) {
                             Some(defined_type) => {
                                 info!("{}", format!("Adding missing type '{name}'").purple());
 
-                                // Add the type to anchor content
-                                anchor_content.push_str(&format!("\n#[derive(AnchorSerialize, AnchorDeserialize)]\n{defined_type}\n"));
+                                // Add the type to mainstay content
+                                mainstay_content.push_str(&format!("\n#[derive(MainstaySerialize, MainstayDeserialize)]\n{defined_type}\n"));
                                 new_idl = true;
                             }
                             None => match REPLECABLE_TYPES.iter().find(|el| el[0] == name) {
@@ -848,8 +848,8 @@ impl<'a> ProgramAndIdlGenerator<'a> {
         }
 
         if new_idl {
-            // Rewrite the anchor file
-            self.write_anchor_dummy()?;
+            // Rewrite the mainstay file
+            self.write_mainstay_dummy()?;
 
             // Re-create the idl
             idl = self.parse_idl();
@@ -864,12 +864,12 @@ impl<'a> ProgramAndIdlGenerator<'a> {
 
         fs::write(&self.idl_generator().idl_path, to_string_pretty(&idl)?)?;
 
-        // Delete anchor dummy if configured
+        // Delete mainstay dummy if configured
         if !self.idl_generator().keep_dummy_program {
             // Dangerous O_o
-            // fs::remove_dir_all(self.anchor_path.parent().unwrap())?;
-            fs::remove_file(&self.anchor_path)?;
-            fs::remove_dir(self.anchor_path.parent().unwrap())?;
+            // fs::remove_dir_all(self.mainstay_path.parent().unwrap())?;
+            fs::remove_file(&self.mainstay_path)?;
+            fs::remove_dir(self.mainstay_path.parent().unwrap())?;
         }
 
         Ok(())
@@ -877,7 +877,7 @@ impl<'a> ProgramAndIdlGenerator<'a> {
 
     fn parse_idl(&self) -> Idl {
         idl::file::parse(
-            &self.anchor_path,
+            &self.mainstay_path,
             self.program_info.version.to_owned(),
             false,
             true,

@@ -1,7 +1,7 @@
 import assert from "assert";
 import { splRecordProgram } from "@native-to-mainstay/spl-record";
 import { Keypair, PublicKey } from "@solana/web3.js";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@project-serum/mainstay";
 
 import { SPL_RECORD_PROGRAM_ID } from "../constants";
 import {

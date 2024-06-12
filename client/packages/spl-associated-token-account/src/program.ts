@@ -1,5 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
-import { Program, AnchorProvider } from "@project-serum/anchor";
+import { Program, MainstayProvider } from "@project-serum/mainstay";
 
 import { SplAssociatedTokenAccountCoder } from "./coder";
 
@@ -9,7 +9,7 @@ export const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
 
 interface GetProgramParams {
   programId?: PublicKey;
-  provider?: AnchorProvider;
+  provider?: MainstayProvider;
 }
 
 export function splAssociatedTokenAccountProgram(
